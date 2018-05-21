@@ -1,0 +1,40 @@
+RAW - 1
+aprs_parse rtnd:  {
+'status': u'201918h v0.2.6.RPI-GPU CPU:0.4 RAM:685.9/972.3MB NTP:0.2ms/-10.3ppm +54.1C 0/0Acfts[1h] RF:+80-1.6ppm/-0.34dB/+16.2dB@10km[387136]/+20.2dB@10km[20/39]', 
+'via': u'GLIDERN1',
+'from': u'UKPOC', 
+'to': u'APRS',
+'timestamp': 0, 
+'format': 'status',
+'raw': u'UKPOC>APRS,TCPIP*,qAC,GLIDERN1:>201918h v0.2.6.RPI-GPU CPU:0.4 RAM:685.9/972.3MB NTP:0.2ms/-10.3ppm +54.1C 0/0Acfts[1h] RF:+80-1.6ppm/-0.34dB/+16.2dB@10km[387136]/+20.2dB@10km[20/39]',
+'path': [u'TCPIP*', u'qAC', u'GLIDERN1'],
+ 'raw_timestamp': u'201918h'
+}
+
+
+Parse packet. Callsign: UKPOC. Packet body: >201918h v0.2.6.RPI-GPU CPU:0.4 RAM:685.9/972.3MB NTP:0.2ms/-10.3ppm +54.1C 0/0Acfts[1h] RF:+80-1.6ppm/-0.34dB/+16.2dB@10km[387136]/+20.2dB@10km[20/39]
+
+RAW - 2
+
+aprs_parse rtnd:  {
+'comment': u'', 
+'via': u'GLIDERN2', 
+'posambiguity': 0, 
+'format': 'uncompressed', 
+'timestamp': 1524083033, 
+'symbol': u'&', 
+'raw': u'SuttonBnk>APRS,TCPIP*,qAC,GLIDERN2:/202353h5413.73NI00112.57W&/A=000935', 
+'symbol_table': u'I', 
+'path': [u'TCPIP*', u'qAC', u'GLIDERN2'], 
+'from': u'SuttonBnk', 
+'messagecapable': False, 
+'altitude': 284.988, 
+'longitude': -1.2095, 
+'to': u'APRS', 
+'latitude': 54.228833333333334, 
+'raw_timestamp': u'202353h'
+}
+
+
+Parse packet. Callsign: None. Packet body: /202353h5413.73NI00112.57W&/A=000935
+

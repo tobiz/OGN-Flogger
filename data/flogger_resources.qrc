@@ -1,0 +1,8 @@
+<RCC>
+  <qresource prefix="newPrefix">
+    <file>flogger_stop.png</file>
+    <file>flogger_start.png</file>
+    <file>flogger_help_icon-1.png</file>
+    <file>flogger_icon-08.png</file>
+  </qresource>
+</RCC>
