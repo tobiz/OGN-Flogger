@@ -86,7 +86,7 @@ class CustomInstallCommand(install):
             tfn = tf.getnames()
             tfm = tf.getmembers()
             sip_dir = tfn[0]
-            sip_lst = tfm[1:]
+            sip_lst = tfm[1:] 
             tf.extractall(members=sip_lst)
             print "Done sip"
             tf = tarfile.open("pyqt4.tgz")
