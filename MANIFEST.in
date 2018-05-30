@@ -1,2 +1,4 @@
 include data *
 include README.rst
+
+#recursive-include OGN_Flogger/data *

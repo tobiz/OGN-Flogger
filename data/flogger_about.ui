@@ -7,8 +7,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>355</height>
+    <width>461</width>
+    <height>441</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,8 +19,8 @@
     <rect>
      <x>20</x>
      <y>20</y>
-     <width>361</width>
-     <height>251</height>
+     <width>431</width>
+     <height>341</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -34,15 +34,15 @@
      <rect>
       <x>10</x>
       <y>20</y>
-      <width>341</width>
-      <height>221</height>
+      <width>402</width>
+      <height>311</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(255, 255, 255);</string>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;OGN Flogger, realtime logging of Flarm signals.&lt;/p&gt;&lt;p&gt;Designer: Peter J Robinson&lt;/p&gt;&lt;p&gt;Graphics: Adrian Melia&lt;/p&gt;&lt;p&gt;Data Source: Open Glider Network (OGN)&lt;/p&gt;&lt;p&gt;Coordinates by: OGN Nominatim Service &lt;/p&gt;&lt;p&gt;Developed using Eclipse Neon 3&lt;/p&gt;&lt;p&gt;UI developed using Qt Designer&lt;/p&gt;&lt;p&gt;Splash screen  courtesy of OGN&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;OGN Flogger, realtime logging of Flarm signals&lt;/span&gt;.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Designer&lt;/span&gt;: Peter J Robinson&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Graphics&lt;/span&gt;: Adrian Melia&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Data Source&lt;/span&gt;: Open Glider Network (OGN)&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Licences&lt;/span&gt;: &lt;/p&gt;&lt;p&gt;Data - Used under the terms of ODbL&lt;/p&gt;&lt;p&gt;Code - GNU GENERAL PUBLIC LICENSE, Version 3 &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Coordinates by&lt;/span&gt;: OGN Nominatim Service &lt;/p&gt;&lt;p&gt;Developed using Eclipse Neon 3&lt;/p&gt;&lt;p&gt;UI developed using Qt Designer&lt;/p&gt;&lt;p&gt;Splash screen courtesy of OGN&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -52,8 +52,8 @@
   <widget class="QPushButton" name="OkpushButton">
    <property name="geometry">
     <rect>
-     <x>270</x>
-     <y>280</y>
+     <x>340</x>
+     <y>370</y>
      <width>109</width>
      <height>26</height>
     </rect>
