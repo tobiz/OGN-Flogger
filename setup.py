@@ -77,22 +77,28 @@ class CustomInstallCommand(install):
             print "Linux install"
             download("https://sourceforge.net/projects/pyqt/files/PyQt4/PyQt-4.12.1/PyQt4_gpl_x11-4.12.1.tar.gz/download", "pyqt4.tgz")
             download("https://sourceforge.net/projects/pyqt/files/sip/sip-4.19.8/sip-4.19.8.tar.gz/download", "sip.tgz")
-            " http://www.riverbankcomputing.com/software/sip/download"
-            " http://www.riverbankcomputing.com/software/pyqt/download"
-#            import gzip
             import tarfile
             import os
+            import shutil
+            import subprocess
+            import sys
             tf = tarfile.open("sip.tgz")
-            os.mkdir("sip")
-            tf.extractall("sip")
+            tfn = tf.getnames()
+            tfm = tf.getmembers()
+            sip_dir = tfn[0]
+            sip_lst = tfm[1:]
+            tf.extractall(members=sip_lst)
             print "Done sip"
-#            file.write(file_content)
-            print "write tgz"
             tf = tarfile.open("pyqt4.tgz")
-            os.mkdir("pyqt4")
-            tf. extractall("pyqt4")
+            tfn = tf.getnames()
+            tfm = tf.getmembers()
+            pyqt4_dir = tfn[0]
+            pyqt4_lst = tfm[1:]
+            tf.extractall(members=pyqt4_lst)
             print "Done pyqt4"
-#            file.close()
+            sip_config = [sys.executable, sip_dir + "/config.py"]
+            subprocess.call(sip_config)
+            print "Sip config done"
             print "Done"
             return
             
