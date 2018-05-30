@@ -53,7 +53,7 @@ class CustomInstallCommand(install):
         os = platform.system()
         print "Operating System is: ", os
         if os == "Windows":
-            download(pyqt4_exe, "pyqt4.exe")
+            download(pyqt4_exe, "pyqt4.exe") 
             print "Test Windows install"
 #            try:
 #                response = urllib2.urlopen(pyqt4_exe)
