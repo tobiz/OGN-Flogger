@@ -1,9 +1,18 @@
-# OGN-Flight-Logger_V3
-DEVELOPMENT OF OGN-Flight-Logger IS NOW CONTINUING AS: OGN-Flight-Logger_V3
+# OGN-Flight-Logger_V4
+DEVELOPMENT OF OGN-Flight-Logger IS NOW CONTINUING AS: OGN-Flight-Logger_V4
 
 Python APRS/OGN program to log flight times, durations and maximum heights achieved
 
-V3 is functionally the same as V2 but controlled by a gui.
+V4 is functionally the same as V3 but is under development for:
+
+- Packaging for installation using PyPi
+- Removal of libfap for parsing APRS packets (libfap not available on Windows)
+- Restructing code to be more 'compliant', eg separation of code and data into separate directories
+- Various changes with the intention of being installable on Microsoft Windows
+
+The following is the old development history.  This will be rewritten when the above objectives have been reached.
+
+To run Flogger once installed run "flogger_gui.py". This starts the system displaying a splash screen whilst building the gui, once this has been done then control is via the gui.
 
 This python program creates an SQlite db of flights from a given location and aircraft list 
 (the later two parameters are to be be developed into a more generalised format).
@@ -14,7 +23,7 @@ At the moment this is very much 'in development'
 To install OGN Flight Logger the following prerequisites are required (see requirements.txt for specific details)
 - python-tz
 - sqlite3
-- libfap (Note this is the "C" library libfap, not the python module libfap.py)
+- libfap (Note this is the "C" library libfap, not the python module libfap.py) (Note as of V4, not required)
 - ephem
 - goecoder
 - geopy
@@ -109,3 +118,5 @@ send an SMS msg but has not been tested.
 20170505 - Added facility to display flight tracks on OpenStreetMap map by double clicking on selected flight in flight log table.
 
 20180114 - To run the gui version call "flogger_gui.py".
+
+20180521 - V4 version started (I'm no git expert!)
