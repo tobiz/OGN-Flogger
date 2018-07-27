@@ -19,7 +19,7 @@ def aprs_parse(packet, settings):
         if res == False:
             return False
     except ParseError as msg:
-        print "aprs_parse failed: ", packet
+#        print "aprs_parse failed: ", packet
         return False
 #    print "aprs_parse worked"
     return res
@@ -33,7 +33,7 @@ def test_base(via_name, settings):
     return False
 
 def check_parse(parse_dict, settings):
-    print "check_parse called: ", parse_dict
+#    print "check_parse called: ", parse_dict
     try:
         comment = parse_dict["comment"]
 #        print "comment field is: ", comment
@@ -54,7 +54,7 @@ def check_parse(parse_dict, settings):
 #            print "via key not present in parse dictionary"
             return False
     except:
-        print "comment key not in parse dictionary"
+#        print "comment key not in parse dictionary"
         return False
 
         

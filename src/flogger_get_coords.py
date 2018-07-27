@@ -19,7 +19,7 @@ def get_coords(address):
     print "get_coords called with: ", address
     geolocator = Nominatim()
 #    g = geolocator.geocode()
-    place, (lat, lng) = geolocator.geocode(address, exactly_one=True)
+    place, (lat, lng) = geolocator.geocode(address, exactly_one=True, timeout=10)
     print "%s: %.5f, %.5f" % (place, lat, lng)
     try:
         geolocator = Nominatim(user_agent="OGN_Flogger")

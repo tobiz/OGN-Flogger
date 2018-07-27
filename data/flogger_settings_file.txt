@@ -142,6 +142,8 @@ G-CIOF = 102
 G-MOYR = 103
 G-BJIV = 104
 G-OSUT = 201
+G-CKAB = 105
+G-BFEV = 106
 
 [FLOGGER_AIRCRAFT_CAT]
 #        'None'                  # 0 = Blank

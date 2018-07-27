@@ -541,8 +541,8 @@ class flogger3(MyApp):
 #                print "File_find is: ", file_find, ". File_time is: ", file_time, "Now is: ", now - days * 86400
                 if (file_find == True) and (file_time <= (now - days * 86400)):
 #                    print "Delete file: ", full_file
-                    print "Full file_name file would be deleted now: ", full_name
-#                    os.remove(full_file)
+                    print "Full file_name file would be deleted now: ", full_file
+                    os.remove(full_file)
         #        else:
         #            print "File not deleted: %s" % full_file
             return
@@ -1108,7 +1108,7 @@ class flogger3(MyApp):
                 if packet:
                     print "aprs_parse rtnd: ", packet
                 else:
-                    print "aprs_parse Failed. Not glider position packet"
+#                    print "aprs_parse Failed. Not glider position packet"
                     continue
                 src_callsign = packet["from"]
                 latitude = packet["latitude"]

@@ -21,7 +21,8 @@ here = path.abspath(path.dirname(__file__))
 with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
     
-pyqt4_exe = 'https://sourceforge.net/projects/pyqt/files/PyQt4/PyQt-4.11.4/PyQt4-4.11.4-gpl-Py2.7-Qt4.8.7-x64.exe/download'
+#pyqt4_exe = 'https://sourceforge.net/projects/pyqt/files/PyQt4/PyQt-4.11.4/PyQt4-4.11.4-gpl-Py2.7-Qt4.8.7-x64.exe/download'
+pyqt4_exe = "https://sourceforge.net/projects/pyqt/files/PyQt4/PyQt-4.11.4/PyQt4-4.11.4-gpl-Py2.7-Qt4.8.7-x32.exe/download"
 
 # See https://medium.com/small-things-about-python/lets-talk-about-python-packaging-6d84b81f1bb5#.pjxrklmi6
 
@@ -31,12 +32,19 @@ class CustomInstallCommand(install):
     """
     def run(self):
         def download(filename, tmp): 
-            print "Download", filename        
-            try:
-                response = urllib2.urlopen(filename)
+            print "Download", filename
+            try:   
+                import httplib
+                response = httplib.HTTPSConnection(filename)
+#                response.request("GET", "/")     
             except Exception, e:
                 print "We failed to get file to download:", e
-                exit()
+                exit()    
+#            try:
+#                response = urllib2.urlopen(filename)
+#            except Exception, e:
+#                print "We failed to get file to download:", e
+#                exit()
             print "Connection success"
             data = response.read()
             print "step 1"
@@ -46,32 +54,24 @@ class CustomInstallCommand(install):
             file.write(data)
             print "step 2"
             file.close()
-            print "Done"
+            print "download Done"
             return
         
         print "Hello, developer, how are you?"
         os = platform.system()
         print "Operating System is: ", os
+        # To test windows
+        os = "Windows"
         if os == "Windows":
             download(pyqt4_exe, "pyqt4.exe") 
             print "Test Windows install"
-#            try:
-#                response = urllib2.urlopen(pyqt4_exe)
-#           except Exception, e:
-#               print "We failed to get PyQt4.exe for Windows:", e
-#                exit()
-#            print "Connection success"
-#            data = response.read()
-#            print "step 1"
-#            # Write data to file
-#            filename = "pyqt4.exe"
-#            file_ = open(filename, 'w')
-#            file_.write(data)
-#            print "step 2"
-#            file_.close()
             print "Done"
             exit()
-#            subprocess.Popen(pyqt4_exe)
+            try:
+                subprocess.Popen(pyqt4_exe)
+            except:
+                print "Windows install pyqy4 failed"
+                exit() 
             os.remove(file_)
         elif os == "Linux":
             print "Linux install"
@@ -88,6 +88,10 @@ class CustomInstallCommand(install):
             sip_dir = tfn[0]
             sip_lst = tfm[1:] 
             tf.extractall(members=sip_lst)
+#            print "sip names: ", tfn
+#            print "sip dir: ", sip_dir
+#            print "sip members: ", tfm
+            os.remove("sip.tgz")
             print "Done sip"
             tf = tarfile.open("pyqt4.tgz")
             tfn = tf.getnames()
@@ -95,23 +99,28 @@ class CustomInstallCommand(install):
             pyqt4_dir = tfn[0]
             pyqt4_lst = tfm[1:]
             tf.extractall(members=pyqt4_lst)
+            os.remove("pyqt4.tgz")
             print "Done pyqt4"
-            sip_config = [sys.executable, sip_dir + "/config.py"]
+            sip_config_file = os.path.abspath(sip_dir + "/configure.py")
+#            print "sip_config_file: ", sip_config_file
+#            sip_config = [sys.executable, sip_dir + "/config.py"]
+            sip_config = [sys.executable, sip_config_file]
             subprocess.call(sip_config)
             print "Sip config done"
-            print "Done"
             return
             
         else:
             print "No install for this OS: ", os
             exit()
-            
-    
-        
-        install.run(self)
+        try:
+            install.run(self)
+        except:
+            print "Failed install.run(self)"
+        print "Done install.run(self()"
+        return
 
 setup(name='OGN_Flogger', 
-      version='0.3.2a13',
+      version='0.3.2a14',
       scripts=['src/flogger_gui.py'],      # Command to run 
       description='Realtime logging of glider flights from Flarm data',
       long_description='Realtime logging and tracking of gliders from Flarm signals using APRS.',
@@ -132,7 +141,7 @@ setup(name='OGN_Flogger',
       python_requires = '>=2.7, <3',
       cmdclass={'install': CustomInstallCommand,
                 },
-      packages = find_packages(),
+#      packages = find_packages(),        # Replaced by Manifest.ini
       dependency_links=["http://www.riverbankcomputing.com/software/sip/download",
                         "http://www.riverbankcomputing.com/software/pyqt/download",
                         "https://sourceforge.net/projects/pyqt/files/PyQt4/PyQt-4.11.4/PyQt4-4.11.4-gpl-Py2.7-Qt4.8.7-x64.exe/download",
@@ -204,4 +213,5 @@ setup(name='OGN_Flogger',
  
 #       packages=find_packages(),
       include_package_data=True,
-      zip_safe=False)
+      zip_safe=False
+    )
