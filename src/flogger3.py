@@ -318,7 +318,7 @@ class flogger3(MyApp):
         #    if settings.FLOGGER_FLEET_CHECK == "N" or settings.FLOGGER_FLEET_CHECK == "n":
             if not test_YorN(settings.FLOGGER_FLEET_CHECK):
                 print "Fleet Check: ", settings.FLOGGER_FLEET_CHECK
-                fleet_name = "Fleet Name: Not used"
+                fleet_name = "Fleet Name:  Is not used"
                 cursor.execute('''SELECT ROWID, registration FROM flarm_db WHERE registration =? OR flarm_id =? ''', (callsign,callsign[3:],))
             else:
                 print "Fleet Check for Airfield: ", settings.FLOGGER_AIRFIELD_NAME
@@ -333,7 +333,7 @@ class flogger3(MyApp):
                 print "Aircraft: ", callsign, " found in flarm db at: ", row1[0], " for: ", fleet_name
                 reg = callsign_trans(callsign)
         #        if settings.FLOGGER_FLEET_CHECK <> "N":
-                print "settings.FLOGGER_FLEET_CHECK: ", settings.FLOGGER_FLEET_CHECK
+                print "settings.FLOGGER_FLEET_CHECK is: ", settings.FLOGGER_FLEET_CHECK
 #                if not test_YorN(settings.FLOGGER_FLEET_CHECK):
                 if test_YorN(settings.FLOGGER_FLEET_CHECK):
         #            if settings.FLOGGER_FLEET_LIST[reg] > 100 and settings.FLOGGER_FLEET_LIST[reg] < 200 and settings.FLOGGER_LOG_TUGS == "N":

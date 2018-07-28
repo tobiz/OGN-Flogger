@@ -23,6 +23,8 @@ from importlib import import_module
 import time
 from flogger_path_join import *
 
+from flogger_get_coords import get_coords
+
 
 
 
@@ -476,7 +478,8 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
         self.MinFlightDeltaTime.setText(old_val) 
                              
         old_val = self.getOldValue(self.config, "FLOGGER_QNH")    
-        settings.FLOGGER_QNH = int(old_val)
+#        settings.FLOGGER_QNH = int(old_val)  
+        settings.FLOGGER_QNH = old_val
         self.AirfieldQNH.setText(old_val)     
                                      
         old_val = self.getOldValue(self.config, "FLOGGER_FLIGHTS_LOG")    
@@ -538,6 +541,7 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
     def floggerUpdateConfig(self):
         print "floggerUpdateConfig called"
         self.floggerAirfieldEdit2(True)
+        self.floggerAirfieldDetailsEdit2(True)
         self.floggerAPRSUserEdit2(True)
         self.floggerAPRSPasscodeEdit2(True)
         self.floggerAPRSServerhostEdit2(True)
@@ -545,7 +549,6 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
         self.floggerFlarmRadiusEdit2(True)
         self.floggerLandoutRadiusEdit2(True)
         self.floggerDataRetentionTimeEdit2(True)
-        self.floggerAirfieldDetailsEdit2(True)
         self.floggerAirfieldLatLonEdit2(True)
         self.floggerMinFlightTimeEdit2(True)
         self.floggerMinTakeoffVelocityEdit2(True)
@@ -577,6 +580,7 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
     def floggerCancelConfigUpdate(self):
         print "floggerCancelConfigUpdate called"
         self.floggerAirfieldEdit2(False)
+        self.floggerAirfieldDetailsEdit2(False)
         self.floggerAPRSUserEdit2(False)
         self.floggerAPRSPasscodeEdit2(False)
         self.floggerAPRSServerhostEdit2(False)
@@ -584,7 +588,6 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
         self.floggerFlarmRadiusEdit2(False)
         self.floggerLandoutRadiusEdit2(False)
         self.floggerDataRetentionTimeEdit2(False)
-        self.floggerAirfieldDetailsEdit2(False)
         self.floggerAirfieldLatLonEdit2(False)
         self.floggerMinFlightTimeEdit2(False)
         self.floggerMinTakeoffVelocityEdit2(False)
@@ -617,7 +620,7 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
         print "Base Airfield button clicked ", "Mode: ", mode 
         if mode:
             # Values have been put into gui field from setting.txt and may then have been changed interactively
-            airfield_base = self.AirfieldBase.toPlainText()  
+            airfield_base = self.AirfieldBase.toPlainText() 
         else:
             # Restore old values from settings.txt
             old_val = self.getOldValue(self.config, "FLOGGER_AIRFIELD_NAME")
@@ -722,7 +725,8 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
             self.AirfieldQNH.setText(old_val)
             AirfieldQNH = old_val
         self.editConfigField("flogger_settings_file.txt", "FLOGGER_QNH", AirfieldQNH)
-        self.FLOGGER_QNH = int(AirfieldQNH)
+#        self.FLOGGER_QNH = int(AirfieldQNH)
+        self.FLOGGER_QNH = AirfieldQNH
         
     def floggerFlarmRadiusEdit2(self, mode):
             print "Flarm Radius button clicked"
@@ -748,9 +752,30 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
         
             
     def floggerAirfieldDetailsEdit2(self, mode):
-        print "Airfield Details button clicked"
+        #
+        # This needs to be changed determine the Lat/Long is AirfieldDetails is supplied
+        # and write them back to the form and to settings.py.  Most of the code is similar
+        # to that below except the lat/long have to found from the get_coords function
+        # in flogger3.py
+        #
+        print "Airfield Details button clicked. Mode: ", mode
         if mode:
             airfield_details = self.AirfieldDetails.toPlainText()
+            print "Airfield Details: ", airfield_details
+            if airfield_details <> "":
+                loc = get_coords(airfield_details)
+                lat = str(loc[0])    # returned as numbers, convert to string
+                lon = str(loc[1])    # as above
+                qnh = str(loc[2])    # as above    
+                self.editConfigField("flogger_settings_file.txt", "FLOGGER_LATITUDE", lat)
+                self.editConfigField("flogger_settings_file.txt", "FLOGGER_LONGITUDE", lon)
+                self.editConfigField("flogger_settings_file.txt", "FLOGGER_QNH", qnh)
+                latlon = LatLon(Latitude(lat), Longitude(lon))
+                latlonStr = latlon.to_string('D% %H')
+                print "latlonStr: ", latlonStr
+                self.AirfieldLatitude.setText(latlonStr[0])
+                self.AirfieldLongitude.setText(latlonStr[1])
+                self.AirfieldQNH.setText(qnh)
         else:
             old_val = self.getOldValue(self.config, "FLOGGER_AIRFIELD_DETAILS")
             self.AirfieldDetails.setText(old_val)
