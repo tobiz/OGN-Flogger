@@ -10,9 +10,38 @@ V4 is functionally the same as V3 but is under development for:
 - Restructing code to be more 'compliant', eg separation of code and data into separate directories
 - Various changes with the intention of being installable on Microsoft Windows
 
-The following is the old development history.  This will be rewritten when the above objectives have been reached.
+Installation
+
+To install Flogger you will need to have installed:
+
+'geocoder>=1.4.0',
+'parse>=1.8.0',
+'configobj>=4.7.2',
+'geopy>=1.11.0',
+'aerofiles>=0.3',
+'aprslib>=0.6.46',
+'gpxpy>=1.1.2',
+'setuptools>=3.3',
+'pytz>=2012c',
+'requests>=2.13.0',
+'mplleaflet>=0.0.5',
+'LatLon>=1.0.2',
+'PyQt4>=4.11.4',
+'pyephem>=3.7.6.0',
+'protobuf>=3.5.2.post1',
+'adhocracy_pysqlite>=2.6.3',
+'pysqlite3>=0.1.0',
+'matplotlib'
+
+The tricky ones to install are: PyQt4 and pysqlite3.
+
+Running
+
+Once installed to run call flogger_gui.py.
 
 To run Flogger once installed run "flogger_gui.py". This starts the system displaying a splash screen whilst building the gui, once this has been done then control is via the gui.
+
+History
 
 This python program creates an SQlite db of flights from a given location and aircraft list 
 (the later two parameters are to be be developed into a more generalised format).
