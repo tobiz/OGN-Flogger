@@ -41,6 +41,16 @@ Once installed to run call flogger_gui.py.
 
 To run Flogger once installed run "flogger_gui.py". This starts the system displaying a splash screen whilst building the gui, once this has been done then control is via the gui.
 
+You will need to set up your own values for the "APRS Setup" tab fields, in particular the "APRS Usernams" and "APRS Passcode" fields. "APRS Server Host" and "APRS Server Port" can be left. The "APRSBase Station" fields should be set to your required values, there need only be 1 but more gives a better result.
+
+"APRS Usernams" and "APRS Passcode" can be created on http://http://www.george-smart.co.uk/wiki/APRS_Callpass
+If a valid username and passcode are not suppled it will exit immediately.
+
+After that go through each tab providing your values. Airfield Lat/Lon do not have to be supplied if "Airfield Details" is supplied as a valid airfield name, if it is, the Lat/Lon and QNH are taken from a database.
+
+I would recommend the "Advanced" field is not changed.
+
+
 History
 
 This python program creates an SQlite db of flights from a given location and aircraft list 
@@ -48,27 +58,14 @@ This python program creates an SQlite db of flights from a given location and ai
 
 At the moment this is very much 'in development'
 (This is a development of V2 which got screwed up when I tried to to create a PyPi package)
- 
-To install OGN Flight Logger the following prerequisites are required (see requirements.txt for specific details)
-- python-tz
-- sqlite3
-- libfap (Note this is the "C" library libfap, not the python module libfap.py) (Note as of V4, not required)
-- ephem
-- goecoder
-- geopy
-- requests
-- aerofiles 
 
+Note, the following is now handled by the gui.
  
 To run flogger first set up the parameters in settings.py then call 'flogger.py'.  Flogger.py will
 run continuously (perhaps it should be a 'service'?) logging flights during day, ie between sunrise
 and sunset. After sunset it processes the days log to determine which log entries constitute actual flights
 and those which are ground movements etc. Once all the flights have been generated into the 'flights' table and
 the days flights dumped as a .csv file, flogger determines when the next sunrise time and sleeps until then, ie waits.
-
-OGN-Flight-Logger must be called using: python flogger.py your_username your_passcode,
-where you_username and your_passcode can be created on http://http://www.george-smart.co.uk/wiki/APRS_Callpass
-If a valid username and passcode are not suppled it will exit immediately.
 
 If installing on an arm based system this can be achieved by:
 
@@ -114,6 +111,8 @@ If -s|--smtp is provided then -t|--tx and -r|--rx must be provided
 Included option to send email if flight lands outside the take off airfield.  This initial version just uses a circular boundary of a specifiable radius.  Code is included to 
 send an SMS msg but has not been tested.
 
+Update History
+
 20160914 - Added option to determine which tug used for a launch, if any, plus release height.
 
 20170213 - Next phase of the development is to control running and configuring the code from a gui. At the moment
@@ -149,3 +148,7 @@ send an SMS msg but has not been tested.
 20180114 - To run the gui version call "flogger_gui.py".
 
 20180521 - V4 version started (I'm no git expert!)
+
+20180729 - Changes to gui to determine Lat/Lon if airfield details supplied. Start of updates to README.
+
+
