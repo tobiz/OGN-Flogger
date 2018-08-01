@@ -34,6 +34,7 @@ To install Flogger you will need to have installed:
 'matplotlib'
 
 The tricky ones to install are: PyQt4 and pysqlite3.
+To install PyQT4 on Linux based systems see: http://problemssol.blogspot.com/2010/12/compile-and-install-pyqt4-for-python27.html.
 
 Running
 
