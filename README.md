@@ -51,6 +51,10 @@ After that go through each tab providing your values. Airfield Lat/Lon do not ha
 
 I would recommend the "Advanced" field is not changed.
 
+Testing
+
+The results produced by Flogger have been compared against those from Ktrax and are  pretty comparable.  Flogger has be set up for my home site and run for several days, the results being checked against Ktrax.  Flogger has also been set up for another site and the results compared against those from Ktrax.
+
 
 History
 
