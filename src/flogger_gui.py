@@ -770,6 +770,7 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
                 self.editConfigField("flogger_settings_file.txt", "FLOGGER_LATITUDE", lat)
                 self.editConfigField("flogger_settings_file.txt", "FLOGGER_LONGITUDE", lon)
                 self.editConfigField("flogger_settings_file.txt", "FLOGGER_QNH", qnh)
+                # The following is just to get Lat & Lon into the right format for display on form
                 latlon = LatLon(Latitude(lat), Longitude(lon))
                 latlonStr = latlon.to_string('D% %H')
                 print "latlonStr: ", latlonStr
@@ -851,7 +852,7 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
             min_QFE = self.MinFlightQFE.toPlainText() 
         else:
             old_val = self.getOldValue(self.config, "FLOGGER_QFE_MIN")
-            self.MinFlightQFE.setText(old_val)
+            self.MinFlightQFE.setText(str(old_val))
             min_QFE = int(old_val) 
         self.editConfigField("flogger_settings_file.txt", "FLOGGER_QFE_MIN", min_QFE) 
         self.FLOGGER_QFE_MIN = min_QFE
