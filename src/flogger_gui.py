@@ -161,6 +161,7 @@ class HelpWindow(QtGui.QMainWindow, Ui_HelpWindow):
         return
     
 
+#global settings_file_dot_txt
 
 #class Window (QtGui.QMainWindow, form_class):
 class MyApp(QtGui.QMainWindow, Ui_MainWindow):
@@ -234,7 +235,7 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
             settings_file_dot_txt = path_join_dd(os.path.abspath(__file__), ["data", "flogger_settings_file.txt"])
             self.config = ConfigObj(settings_file_dot_txt, raise_errors = True)
 #            self.config = ConfigObj("../data/flogger_settings_file.txt", raise_errors = True)
-            print "Opened"
+            print "Opened flogger_settings_file.txt path:", settings_file_dot_txt
         except:
             print "Open failed"
             print self.config
@@ -573,6 +574,10 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
         self.floggerFlightLogFolderEdit2(True)
         self.floggerLandoutMsgModeEdit2(True)
 #        self.floggerIncludeTugFlightsEdit2(True)
+        try:
+            self.config.write()
+        except:
+            print "Writing updated config file, flogger_settings_file.txt FAILED"
         return
 
 
@@ -615,7 +620,8 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
                        
         
     def floggerAirfieldEdit2(self, mode):
-        # Mode: True - update all fields, valraible to latest valuese
+        # Mode: True - update all fields, variables to latest values
+        
         #       False - restore all fields and variables to values from config (settings.txt) file
         print "Base Airfield button clicked ", "Mode: ", mode 
         if mode:
@@ -632,7 +638,10 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
         # Put current value into settings.txt file for future use
         self.editConfigField("flogger_settings_file.txt", "FLOGGER_AIRFIELD_NAME", airfield_base)
         # Now update python variable to current value in gui and settings.txt
-        self.FLOGGER_AIRFIELD_NAME = airfield_base
+#        self.FLOGGER_AIRFIELD_NAME = airfield_base
+#        settings.FLOGGER_AIRFIELD_NAME = airfield_base
+        print "FLOGGER_AIRFIELD_NAME from settings.py: ", settings.FLOGGER_AIRFIELD_NAME
+        
 
         
     def floggerAPRSUserEdit2(self, mode):
@@ -1339,7 +1348,8 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
 #        setattr(self, field_name, new_value) #equivalent to: self.'field_name' = new_value
         if type(new_value) is int: 
             int(new_value)
-        setattr(self, field_name, new_value) #equivalent to: self.'field_name' = new_value
+#        setattr(self, field_name, new_value) #equivalent to: self.'field_name' = new_value
+        setattr(settings, field_name, new_value) #equivalent to: settings.'field_name' = new_value
             
     def setOldValue(self, config_field_name): 
 #        val = self.config[config_field_name]

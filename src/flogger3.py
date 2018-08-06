@@ -309,6 +309,9 @@ class flogger3(MyApp):
             # it has taken off from the designated location. The intention if the fleet check is to enable recording only
             # flights undertaken by the club fleet.
             #
+            # This should first check whether callsign is in FlarmDB and if not return False
+            # It should then check whether a Fleet Check is to be done. If N then return False
+            # If Fleet Check is to be done and is Fleet then return True
             print "In fleet check for: ", callsign
         #    cursor.execute('''SELECT ROWID FROM aircraft WHERE registration =? or flarm_id=? ''', (callsign,callsign,))
         #    row = cursor.fetchone()
@@ -317,6 +320,7 @@ class flogger3(MyApp):
         #    cursor.execute('''SELECT ROWID FROM flarm_db WHERE flarm_id =?''', (flarm_id,))
         #    if settings.FLOGGER_FLEET_CHECK == "N" or settings.FLOGGER_FLEET_CHECK == "n":
             if not test_YorN(settings.FLOGGER_FLEET_CHECK):
+#            if test_YorN(settings.FLOGGER_FLEET_CHECK):
                 print "Fleet Check: ", settings.FLOGGER_FLEET_CHECK
                 fleet_name = "Fleet Name:  Is not used"
                 cursor.execute('''SELECT ROWID, registration FROM flarm_db WHERE registration =? OR flarm_id =? ''', (callsign,callsign[3:],))
@@ -342,6 +346,9 @@ class flogger3(MyApp):
                         return False
                     else:
                         print "Tug flight: ", reg
+                else:
+                    print "Aircraft: ", callsign_trans(callsign), "Is in FlarmDB, but Fleet Check is: ", settings.FLOGGER_FLEET_CHECK
+                    return True
             # At least 1 match for the callsign has been found
             return True
         
@@ -1127,11 +1134,13 @@ class flogger3(MyApp):
                 
                 # Check if callsign is in the fleet 
                 if fleet_check_new(str(src_callsign)) == False:
-                    print "Aircraft ", src_callsign, " not registered at ", settings.FLOGGER_AIRFIELD_NAME, " , ignore"
+                    print "Aircraft", src_callsign, " not in FlarmDB, ignore"
+#                    print "Aircraft ", src_callsign, " not registered at ", settings.FLOGGER_AIRFIELD_NAME, " , ignore"
                     print "-----------------End of Packet: ", i, " ------------------------------"
                     continue
                 else:
-                    print "Aircraft ", src_callsign, " is in ", settings.FLOGGER_AIRFIELD_NAME, " fleet, process"
+                    print "Aircraft ", src_callsign, " is in FlarmDB. Fleet Check for ", settings.FLOGGER_AIRFIELD_NAME, " may or may not be needed, process"
+#                    print "Aircraft ", src_callsign, " is in ", settings.FLOGGER_AIRFIELD_NAME, " fleet, process"
                     # Use registration if it is in aircraft table else just use Flarm_ID
         #            src_callsign =     callsign_trans(src_callsign)
         #            print "Aircraft callsign is now: ", src_callsign
