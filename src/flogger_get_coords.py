@@ -28,9 +28,11 @@ def get_coords(address):
             if location == None:
                 print "Geocoder Service timed out or Airfield: ", address, " not known by geocode locator service. Check settings"
                 return False
+            print address, " Is at: ", " Lat: ", location.latitude, " Long: ", location.longitude
+            
             i = 1
-            while i <= 10:
-                ele = geocoder.google([location.latitude, location.longitude], method='elevation')
+            while i <= 5:
+                ele = geocoder.google([location.latitude, location.longitude], method='elevation', key="AIzaSyA6FEQW_6e5Va0bUd9BHqTLUWEqFmKOSXg")
                 if ele.meters == None:
                     print "geocoder.google try: ", i
                     i = i + 1

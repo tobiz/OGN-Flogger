@@ -56,7 +56,7 @@ def email_log2(sender, receiver, filepath, date, settings):
     
 #    print "SMTP URL: " + str(settings.FLOGGER_SMTP_SERVER_URL) + " SMTP Port: " + str(settings.FLOGGER_SMTP_SERVER_PORT)
     try:
-        server = smtplib.SMTP(settings.FLOGGER_SMTP_SERVER_URL, settings.FLOGGER_SMTP_SERVER_PORT)
+        server = smtplib.SMTP(str(settings.FLOGGER_SMTP_SERVER_URL), str(settings.FLOGGER_SMTP_SERVER_PORT))
 #        server = smtplib.SMTP(settings.FLOGGER_SMTP_SERVER_URL, int(settings.FLOGGER_SMTP_SERVER_PORT))
 #        print "SMTP Server connection ok"
     except:

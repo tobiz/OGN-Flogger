@@ -26,9 +26,13 @@ def dump_flights(settings):
     #
     path = os.path.dirname(os.path.abspath(__file__))
 #    db_file = os.path.join(path,"../db/" + settings.FLOGGER_DB_NAME)
-    db_file = path_join_dd(os.path.abspath(__file__), ["db", settings.FLOGGER_DB_NAME])
+    db_name = str(settings.FLOGGER_DB_NAME)
+#    db_file = path_join_dd(os.path.abspath(__file__), ["db", settings.FLOGGER_DB_NAME])
+    db_file = path_join_dd(os.path.abspath(__file__), ["db", db_name])
 #    flight_log_file = os.path.join(path,"../logs/" + settings.FLOGGER_FLIGHTS_LOG)
-    flight_log_file = path_join_dd(os.path.abspath(__file__), ["logs", settings.FLOGGER_FLIGHTS_LOG])
+    flights_log = str( settings.FLOGGER_FLIGHTS_LOG)
+#   flight_log_file = path_join_dd(os.path.abspath(__file__), ["logs", settings.FLOGGER_FLIGHTS_LOG])
+    flight_log_file = path_join_dd(os.path.abspath(__file__), ["logs", flights_log])
     print "Start flights table dump"
     try:
 #        db = sqlite3.connect(settings.FLOGGER_DB_NAME)

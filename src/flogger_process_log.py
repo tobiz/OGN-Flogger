@@ -179,7 +179,7 @@ def process_log (cursor, db, settings):
     #
     
     print "+++++++Phase 2: Process Groups. Start+++++++"
-    time_lmt = datetime.datetime.strptime(settings.FLOGGER_DUPLICATE_FLIGHT_DELTA_T, "%H:%M:%S") - datetime.datetime.strptime("0:0:0", "%H:%M:%S")
+    time_lmt = datetime.datetime.strptime(str(settings.FLOGGER_DUPLICATE_FLIGHT_DELTA_T), "%H:%M:%S") - datetime.datetime.strptime("0:0:0", "%H:%M:%S")
     lmt_secs = time_lmt.total_seconds()         # lmt_secs is a constant so compute once
     group = 0                                   # Number of groups set for case there are none
     

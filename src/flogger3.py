@@ -389,7 +389,8 @@ class flogger3(MyApp):
             try:
                 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 set_keepalive(sock, after_idle_sec=60, interval_sec=3, max_fails=5)
-                sock.connect((settings.APRS_SERVER_HOST, settings.APRS_SERVER_PORT))
+#                sock.connect((settings.APRS_SERVER_HOST, settings.APRS_SERVER_PORT))
+                sock.connect((settings.APRS_SERVER_HOST, int(settings.APRS_SERVER_PORT)))
             except Exception, e:
                 print "Socket failure on connect: ", e
             print "Socket sock connected"
@@ -691,16 +692,31 @@ class flogger3(MyApp):
         # too large during testing
         #-----------------------------------------------------------------
         #
-        path = os.path.dirname(os.path.abspath(__file__))
+#        path = os.path.dirname(os.path.abspath(__file__))
 #        schema_file = os.path.join(path,"../data/" + settings.FLOGGER_DB_SCHEMA)
-        p1 = os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir)
+#        p1 = os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir)
+#        print "FLOGGER_DB_SCHEMA: ", settings.FLOGGER_DB_SCHEMA
+#        print "[data,settings.FLOGGER_DB_NAME]: ", ["data", settings.FLOGGER_DB_SCHEMA]
 #        schema_file = os.path.join(path_join(p1, ["data"]),settings.FLOGGER_DB_SCHEMA)
-        schema_file = path_join_dd(os.path.abspath(__file__), ["data", settings.FLOGGER_DB_SCHEMA])
-        print "schema_file: ", schema_file
+#        schema_file = path_join_dd(os.path.abspath(__file__), ["data", settings.FLOGGER_DB_SCHEMA])
+#        schema_path_data = path_join_dd(os.path.abspath(__file__), ["data"])
+#        schema_file = path_join_dd(schema_path_data, [settings.FLOGGER_DB_SCHEMA])
+#        print "FLOGGER_DB_SCHEMA: ", settings.FLOGGER_DB_SCHEMA
+#        print "schema_file: ", schema_file
 #        db_file = os.path.join(path,"../db/" + settings.FLOGGER_DB_NAME)       
 #        db_file = os.path.join(path_join(p1,["db"]),settings.FLOGGER_DB_NAME)
-        db_file = path_join_dd(os.path.abspath(__file__), ["db", settings.FLOGGER_DB_NAME])
-        print "db_file: ", db_file
+#        db_file = path_join_dd(os.path.abspath(__file__), ["db", settings.FLOGGER_DB_NAME])
+#        print "db_file: ", db_file
+        data_path = path_join(path, ["data"])
+        print "data_path: ", data_path
+        schema_file = path_join(data_path, [str(settings.FLOGGER_DB_SCHEMA)])
+        print "schema_file now: ", schema_file
+        db_path = path_join(path, ["db"])
+        db_file = path_join(db_path, [str(settings.FLOGGER_DB_NAME)])
+        print "db_file now: ", db_file
+        
+        # really messed up on type with change to flogger_gui
+        settings.FLOGGER_AIRFIELD_NAME = str(settings.FLOGGER_AIRFIELD_NAME) # get back to string type
 
         
         
@@ -754,7 +770,8 @@ class flogger3(MyApp):
         if settings.FLOGGER_AIRFIELD_DETAILS <> "":
             loc = get_coords(settings.FLOGGER_AIRFIELD_DETAILS)
             i = 1
-            while loc == False and i<=100:
+#            while loc == False and i<=100:
+            while loc == False and i<=3:
 #            while loc[2] == None:
 #                print "get_coords returned loc[2] as None, retry", " Retry count get_coords: ", i
                 print "get_coords returned False, retry", " Retry count get_coords: ", i
@@ -805,7 +822,8 @@ class flogger3(MyApp):
         location = ephem.Observer()
         location.pressure = 0
         #location.horizon = '-0:34'    # Adjustments for angle to horizon
-        location.horizon = settings.FLOGGER_LOCATION_HORIZON    # Adjustments for angle to horizon
+#        location.horizon = settings.FLOGGER_LOCATION_HORIZON    # Adjustments for angle to horizon
+        location.horizon = str(settings.FLOGGER_LOCATION_HORIZON)    # Adjustments for angle to horizon
         
         location.lat = settings.FLOGGER_LATITUDE
         location.lon = settings.FLOGGER_LONGITUDE
@@ -907,7 +925,8 @@ class flogger3(MyApp):
                 next_sunset = location.next_setting(ephem.Sun(), date).datetime()
                 # Set datetime to current time + FLOGGER_LOG_TIME_DELTA to start processing flight log 
                 # that number of hours before sunset
-                log_datetime = datetime.datetime.now() + datetime.timedelta(hours=settings.FLOGGER_LOG_TIME_DELTA)
+#                log_datetime = datetime.datetime.now() + datetime.timedelta(hours=settings.FLOGGER_LOG_TIME_DELTA)
+                log_datetime = datetime.datetime.now() + datetime.timedelta(hours=int(settings.FLOGGER_LOG_TIME_DELTA))
         #        print "Log datetime is: ", log_datetime
                 location.date = ephem.Date(log_datetime)
                 print "Ephem date is: ", location.date
@@ -952,7 +971,7 @@ class flogger3(MyApp):
         # 
                     if settings.FLOGGER_SMTP_SERVER_URL <> "":
                         print "Email today's flight log. RX: " + settings.FLOGGER_SMTP_RX
-                        email_log2(settings.FLOGGER_SMTP_TX, settings.FLOGGER_SMTP_RX, csv_file, datetime.date.today(), settings)
+                        email_log2(str(settings.FLOGGER_SMTP_TX), str(settings.FLOGGER_SMTP_RX), csv_file, datetime.date.today(), settings)
                     else:
                         print "Don't email flight log, no flights"
                     
@@ -993,8 +1012,8 @@ class flogger3(MyApp):
         # Delete historic files as specified
         #            
                     print "+++++++Phase 4 Start Delete out of date files+++++++" 
-                    delete_flogger_file(settings.FLOGGER_TRACKS_FOLDER, "track", settings.FLOGGER_DATA_RETENTION)
-                    delete_flogger_file(settings.FLOGGER_FLIGHTS_LOG, "flights.csv", settings.FLOGGER_DATA_RETENTION)
+                    delete_flogger_file(str(settings.FLOGGER_TRACKS_FOLDER), "track", int(settings.FLOGGER_DATA_RETENTION))
+                    delete_flogger_file(str(settings.FLOGGER_FLIGHTS_LOG), "flights.csv", int(settings.FLOGGER_DATA_RETENTION))
                     print "-------Phase 4 End-------" 
                     
         #

@@ -773,6 +773,7 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
             print "Airfield Details: ", airfield_details
             if airfield_details <> "":
                 loc = get_coords(airfield_details)
+                print "get_coords rtns: ", loc
                 lat = str(loc[0])    # returned as numbers, convert to string
                 lon = str(loc[1])    # as above
                 qnh = str(loc[2])    # as above    
