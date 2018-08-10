@@ -32,7 +32,7 @@ def get_coords(address):
             
             i = 1
             while i <= 5:
-                ele = geocoder.google([location.latitude, location.longitude], method='elevation', key="AIzaSyA6FEQW_6e5Va0bUd9BHqTLUWEqFmKOSXg")
+                ele = geocoder.google([location.latitude, location.longitude], method='elevation')
                 if ele.meters == None:
                     print "geocoder.google try: ", i
                     i = i + 1
