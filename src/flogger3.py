@@ -576,7 +576,7 @@ class flogger3(MyApp):
             print "Create new socket"
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             try:
-                sock.connect((settings.APRS_SERVER_HOST, settings.APRS_SERVER_PORT))
+                sock.connect((settings.APRS_SERVER_HOST, int(settings.APRS_SERVER_PORT)))
             except Exception, e:
                 print "Connection refused. Errno: ", e
                 exit() 
@@ -733,21 +733,7 @@ class flogger3(MyApp):
         cursor.executescript(schema)  
         print "End of building db: ", settings.FLOGGER_DB_NAME, " using schema: ", settings.FLOGGER_DB_SCHEMA
         
-##        if os.path.isfile(settings.FLOGGER_DB_NAME):        
-#        if os.path.isfile(settings.FLOGGER_DB_NAME) and settings.FLOGGER_MODE <> "test":
-#            print "SQLite3 db file exists so delete it"
-#            os.remove(settings.FLOGGER_DB_NAME)
-#        else:
-#            print "SQLite3 db file exists but in test mode so DON'T delete it!"
-#        
-#        db = sqlite3.connect(settings.FLOGGER_DB_NAME)
-#        cursor = db.cursor()                            # Get a cursor object
-##        f = open(settings.FLOGGER_DB_SCHEMA, 'rt')      # Open the db schema file for reading
-#        f = open(settings.FLOGGER_DB_SCHEMA, 'rt')      # Open the db schema file for reading
-#        schema = f.read()                               
-#        cursor.executescript(schema)                                
-##      cursor.executescript(schema)                ###   # Build flogger db from schema
-#        print "End of building db: ", settings.FLOGGER_DB_NAME, " using schema: ", settings.FLOGGER_DB_SCHEMA
+
         
         #    
         #-----------------------------------------------------------------
@@ -799,19 +785,7 @@ class flogger3(MyApp):
         else:
             print "Use location data from settings"   
             
-        #    
-        #-----------------------------------------------------------------
-        # Set up list of APRS base stations to be used
-        # (Note this code could be nicer but will do for now)
-        #-----------------------------------------------------------------
-        #    
-            
-        #APRS_base_list = [settings.FLOGGER_APRS_BASE_1, 
-        #                  settings.FLOGGER_APRS_BASE_2, 
-        #                  settings.FLOGGER_APRS_BASE_3,
-        #                  settings.FLOGGER_APRS_BASE_4,] 
-        
-#        APRS_base_list = settings.FLOGGER_APRS_BASES 
+
         
         #    
         #-----------------------------------------------------------------
@@ -1106,7 +1080,7 @@ class flogger3(MyApp):
                     print "Create new socket"
                     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                     try:
-                        sock.connect((settings.APRS_SERVER_HOST, settings.APRS_SERVER_PORT))
+                        sock.connect((settings.APRS_SERVER_HOST, int(settings.APRS_SERVER_PORT)))
                     except Exception, e:
                         print "Connection refused. Errno: ", e
                         exit() 
