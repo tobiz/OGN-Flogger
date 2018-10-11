@@ -133,7 +133,7 @@ def process_log (cursor, db, settings):
         if strt_date >= max_date:
             print "**** Record start date: ", strt_date, " after last flight_log record, copy: ", max_date
             print "Flight duration is: ", duration, " MINTIME is: ", MINTIME
-            delta_alt = (float(row[6]) - (settings.FLOGGER_QNH + settings.FLOGGER_QFE_MIN))
+            delta_alt = (float(row[6]) - (float(settings.FLOGGER_QNH) + float(settings.FLOGGER_QFE_MIN)))
             print "Delta altitude is: ", delta_alt
             if duration > MINTIME:
                 print "#### Copy record. Duration is: ", time_str
@@ -143,14 +143,14 @@ def process_log (cursor, db, settings):
                                     'duration': row[4], 'src_callsign':row[5], 'max_altitude':row[6], 'speed':row[7], 'registration':row[8], 'flight_no': row[9]})
                 print "Row copied"
 #            else:
-            elif (float(row[6]) - (settings.FLOGGER_QNH + settings.FLOGGER_QFE_MIN)) <= 0:
+            elif (float(row[6]) - (float(settings.FLOGGER_QNH) + float(settings.FLOGGER_QFE_MIN))) <= 0:
 #                print "xxxx Flight duration less than or equal to MINTIME: ", duration, " Check altitude xxxx"
                 # Note this needs a major enhancement to store the altitude at take off
                 # For now make it simple. Needs better solution, eg add takeoff alt to db
 #                if row[6] <= (settings.FLOGGER_QNH + settings.FLOGGER_QFE_MIN):
                 print "====Ignore row, flight time too short and too low. Time: ", row[4], " alt: ", row[6], " QNH Min: ", (settings.FLOGGER_QNH + settings.FLOGGER_QFE_MIN)
 #                else:
-            elif (float(row[6]) - (settings.FLOGGER_QNH + settings.FLOGGER_QFE_MIN)) > 0:
+            elif (float(row[6]) - (float(settings.FLOGGER_QNH) + float(settings.FLOGGER_QFE_MIN))) > 0:
                 print "++++Accept row, short flight but ok min height. Time: ", row[4], " alt: ", row[6], " QNH Min: ", (settings.FLOGGER_QNH + settings.FLOGGER_QFE_MIN)
                 cursor.execute('''INSERT INTO flight_log(sdate, stime, edate, etime, duration, src_callsign, max_altitude, speed, registration,flight_no)
                                 VALUES(:sdate,:stime,:edate,:etime,:duration,:src_callsign,:max_altitude,:speed, :registration,:flight_no)''',

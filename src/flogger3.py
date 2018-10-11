@@ -754,14 +754,14 @@ class flogger3(MyApp):
         #
         
         if settings.FLOGGER_AIRFIELD_DETAILS <> "":
-            loc = get_coords(settings.FLOGGER_AIRFIELD_DETAILS)
+            loc = get_coords(settings.FLOGGER_AIRFIELD_DETAILS, settings)
             i = 1
 #            while loc == False and i<=100:
             while loc == False and i<=3:
 #            while loc[2] == None:
 #                print "get_coords returned loc[2] as None, retry", " Retry count get_coords: ", i
                 print "get_coords returned False, retry", " Retry count get_coords: ", i
-                loc = get_coords(settings.FLOGGER_AIRFIELD_DETAILS)
+                loc = get_coords(settings.FLOGGER_AIRFIELD_DETAILS, settings)
                 i = i + 1
 #                time.sleep (1)
                 
