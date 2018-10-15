@@ -16,6 +16,8 @@ import time
 from geopy.geocoders.base import ERROR_CODE_MAP
 import geopy
 from geopy import geocoders
+import requests
+import json
 
 def get_coords(address, settings):
     print "get_coords called with: ", address
@@ -24,9 +26,23 @@ def get_coords(address, settings):
 #    g = geolocator.geocode()
     place, (lat, lng) = geolocator.geocode(address, exactly_one=True, timeout=10)
     print "%s: %.5f, %.5f" % (place, lat, lng)
-    
-    if settings.FLOGGER_QNH <> "":
-        return lat, lng, settings.FLOGGER_QNH
+#    
+#    if settings.FLOGGER_QNH <> "":
+#        return lat, lng, settings.FLOGGER_QNH   
+#    print "Call requests"
+#    lng = str(-1.20930940595)
+#    lat = str(54.2289539)
+    url = "https://elevation-api.io/api/elevation?points=(" + str(lat) + "," + str(lng)
+#    print "url string is: ", url
+    jsondata = requests.get(url)
+    x = json.loads(jsondata.text)
+    alt =  x["elevations"][0]["elevation"]
+#    print type(alt)
+#    print "elevation is: ", alt
+    return lat, lng, alt
+    #
+    # Following doesn't work after Google changed charging policy
+    #
     ele = geocoder.google([lat, lng], method='elevation')
     print address, " Elevation is: ", ele.meters
     try:
