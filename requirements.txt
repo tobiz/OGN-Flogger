@@ -8,7 +8,7 @@ aprslib==0.6.46
 gpxpy==1.1.2
 setuptools==3.3
 pytz==2012c
-requests==2.13.0
+requests==2.20.0
 mplleaflet==0.0.5
 LatLon==1.0.2
 pyephem==3.7.6.0
